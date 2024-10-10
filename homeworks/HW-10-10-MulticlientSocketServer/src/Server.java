@@ -25,6 +25,7 @@ public class Server {
             this.clientSocket = socket;
         }
 
+        @Override
         public void run() {
             try (BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                  PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
@@ -35,14 +36,15 @@ public class Server {
                 switch (request) {
                     case "ADD":
                         String studentData = in.readLine();
-                        addStudent(studentData);
-                        out.println("Student added successfully!");
+                        if (studentData != null) {
+                            addStudent(studentData);
+                            out.println("Student added successfully!");
+                        }
+                        else out.println("No students added!");
                         break;
                     case "VIEW":
                         List<String> students = viewStudents();
-                        for (String student : students) {
-                            out.println(student);
-                        }
+                        students.forEach(out::println);
                         break;
                     case "AVERAGE":
                         String studentName = in.readLine();

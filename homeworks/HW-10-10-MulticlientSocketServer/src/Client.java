@@ -19,6 +19,7 @@ public class Client {
                     out.println(studentData);
                     break;
                 case "VIEW":
+                    System.out.println("Printing information for all students: ");
                     break;
                 case "AVERAGE":
                     System.out.println("Enter student name: ");
